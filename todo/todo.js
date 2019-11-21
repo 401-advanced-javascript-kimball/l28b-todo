@@ -1,21 +1,21 @@
-'use strict';
+
 
 let todoList = [];
-let editing = false;
+const editing = false;
 
-let itemsContainer = document.getElementById('items');
-let header = document.getElementById('header');
-let form = document.getElementById('todoForm');
-let newItem = document.getElementById('item');
+const itemsContainer = document.getElementById('items');
+const header = document.getElementById('header');
+const form = document.getElementById('todoForm');
+const newItem = document.getElementById('item');
 
 form.addEventListener('submit', handleSubmit);
 itemsContainer.addEventListener('click', toggleComplete);
 
-let itemsSource   = document.getElementById('item-template').innerHTML;
-let itemsTemplate = Handlebars.compile(itemsSource);
+const itemsSource = document.getElementById('item-template').innerHTML;
+const itemsTemplate = Handlebars.compile(itemsSource);
 
-let headerSource   = document.getElementById('header-template').innerHTML;
-let headerTemplate = Handlebars.compile(headerSource);
+const headerSource = document.getElementById('header-template').innerHTML;
+const headerTemplate = Handlebars.compile(headerSource);
 
 
 function Item(text) {
@@ -23,32 +23,32 @@ function Item(text) {
   this.id = Math.random();
   this.complete = false;
 }
-Item.prototype.toggle = function() {
-  this.complete = ! this.complete;
+Item.prototype.toggle = function () {
+  this.complete = !this.complete;
 };
 
 function drawItems() {
-  let count = todoList.filter( item => !item.complete ).length;
-  header.innerHTML = headerTemplate({count});
+  const count = todoList.filter((item) => !item.complete).length;
+  header.innerHTML = headerTemplate({ count });
 
-  let list = todoList.map( item => {
+  const list = todoList.map((item) => {
     item.editing = editing === item.id;
     return item;
   });
 
-  itemsContainer.innerHTML = itemsTemplate({list});
+  itemsContainer.innerHTML = itemsTemplate({ list });
 }
 
 function handleSubmit(e) {
   e.preventDefault();
-  todoList.push( new Item(newItem.value) );
+  todoList.push(new Item(newItem.value));
   e.target.reset();
   drawItems();
 }
 
 function toggleComplete(e) {
-  let id = parseFloat(e.target.id);
-  let item = todoList.filter(i => i.id === id)[0] || {};
+  const id = parseFloat(e.target.id);
+  const item = todoList.filter((i) => i.id === id)[0] || {};
   if (item.id) {
     item.toggle();
     updateList(item);
@@ -57,13 +57,10 @@ function toggleComplete(e) {
 }
 
 function deleteItem(id) {
-  todoList = todoList.filter(i => i.id !== id);
+  todoList = todoList.filter((i) => i.id !== id);
   drawItems();
 }
 
 function updateList(updatedItem) {
-  todoList =
-    todoList.map(item =>
-      item.id === updatedItem.id ? updatedItem : item
-    );
+  todoList =    todoList.map((item) => (item.id === updatedItem.id ? updatedItem : item),);
 }

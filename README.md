@@ -78,6 +78,18 @@ You will be refactoring this simple "To Do" application, written with HTML, CSS,
 * Some basic CSS has been provided in the starter code
   * Convert this to SASS
 
+### Recommended Steps
+
+* Ignore Events because React will cover that
+* Properties that are being changed are they worth being put in state
+* What is each function doing
+* Index and Todo combined in React Component
+  * There is a template in the todo.js
+    * It has a header and list in it
+* Item is a constructor
+  * Creating data so should it be it’s own class
+* You may want to have a parent app with a child todo  
+
 ## Tests
 
 Write mount/enzyme tests for each component in all assignments
